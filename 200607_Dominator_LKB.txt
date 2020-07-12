@@ -1,0 +1,22 @@
+def solution (A) :
+  B = sorted(A)  
+  result = 0
+  size=0
+  for i in range (0, len(A)) :
+    if(size ==0 ) :
+      size +=1
+      value = B[i]
+    else :
+      if(value != B[i]) :
+        size -= 1
+      else :
+        size += 1
+  if (size > 0) :
+    result = value 
+  count = 0
+  j = 0
+  for i in range (0, len(A)) :
+    if(A[i] == result) :
+      count += 1
+      j = i
+  return (j if(count >= len(A)/2) else -1)
