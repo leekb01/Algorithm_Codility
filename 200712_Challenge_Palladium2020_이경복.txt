@@ -1,0 +1,46 @@
+def solution(H) :
+  Left = []
+  Right = []
+  Max_init = None
+  Max_final = None
+  Left_Area = []
+  Right_Area = []
+  Max_LeftHeight = 0
+  Max_RightHeight = 0
+
+  Max = max(H)
+  for i in range(0,len(H)) :
+    if(H[i]==Max and Max_init == None) :
+      Max_init = i
+      Max_final = i
+    elif (H[i]==Max and Max_init != None) :
+      Max_final = i
+
+  for i in range(0,len(H)) :
+    if (i < Max_init) :
+      Left.append(H[i])
+    elif (i > Max_final) :
+      Right.append(H[i])
+
+  if(len(Left) != 0) :
+    for i in range (0,len(Left)) :
+      Max_LeftHeight = max(Max_LeftHeight,Left[i])
+      Left_Area.append (Max_LeftHeight*(i+1) + Max*(len(Left)-(i+1)))
+    if(len(Right) == 0) :
+      return min(Left_Area) + Max*(Max_final-Max_init + 1)
+
+  if(len(Right) != 0) :
+    for i in range (len(Right)-1,-1,-1) :
+      Max_RightHeight = max(Max_RightHeight,Right[i])
+      Right_Area.append ( Max_RightHeight*(len(Right)-i) + Max * i)
+    if(len(Left) == 0) :
+      return min(Right_Area) + Max*(Max_final-Max_init + 1)
+
+  if(len(Left) != 0 and len(Right)!=0) :
+    if min(Left_Area) + Max*len(Right) >= min(Right_Area) + Max*len(Left) :
+      return min(Right_Area) + Max*len(Left) + Max*(Max_final-Max_init + 1)
+    else :
+      return min(Left_Area) + Max*len(Right) + Max*(Max_final-Max_init + 1)
+  
+  elif(len(Left) == 0 and len(Right)==0) :
+    return Max*len(H)
