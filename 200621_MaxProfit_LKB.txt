@@ -1,0 +1,11 @@
+
+def solution(A) :
+  if len(A) == 1 or len(A) == 0 :
+    return 0
+
+  minvalue = A[0] 
+  ResultArr = []
+  for i in range (0,len(A)) :
+    ResultArr.append(A[i]-minvalue)
+    minvalue = min(A[i],minvalue)   
+  return max(ResultArr)
